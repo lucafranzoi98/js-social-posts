@@ -109,28 +109,39 @@ posts.forEach(post => postsListEl.insertAdjacentHTML("beforeend", addPost(post.a
 /*Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.*/
 
 
-const likeParts = posts.map(post => {
+const postLike = posts.map(post => {
    return {id: post.id, likes: post.likes};
 });
 
-const likesBtn = document.querySelectorAll(".like-button");
+const postLikeBtn = document.querySelectorAll(".like-button");
+const postCounter = document.querySelectorAll(".js-likes-counter");
 
-for (let i = 0; i < likeParts.length; i++) {
-   likeParts[i].btn = likesBtn[i];
+for (let i = 0; i < postLike.length; i++) {
+   postLike[i].btn = postLikeBtn[i];
+   postLike[i].counter = postCounter[i];
 }
 
-likeParts.forEach(part => {
-   const btn = part.btn;
-   const id = part.id;
+const likedPosts = [];
+
+postLike.forEach(post => {
+   let i = 0;
+   const btn = post.btn;
+   let likes = post.likes;
+   const id = post.id;
+   const counter = post.counter;
    btn.addEventListener("click", function(e){
       btn.classList.add("like-button--liked");
-
+      likes++;
+      counter.innerHTML = likes;
+      likedPosts.push(id);
+      console.log(likedPosts);
       e.preventDefault();
+      
    })
-   
+   i++;
 })
 
-const likedPosts = [];
+
 
 
 
