@@ -129,12 +129,21 @@ postLike.forEach(post => {
    let likes = post.likes;
    const id = post.id;
    const counter = post.counter;
+   let liked = false;
    btn.addEventListener("click", function(e){
-      btn.classList.add("like-button--liked");
-      likes++;
-      counter.innerHTML = likes;
-      likedPosts.push(id);
-      console.log(likedPosts);
+      btn.classList.toggle("like-button--liked");
+      if (liked) {
+         likes--;
+         counter.innerHTML = likes;
+         liked = false;
+      } else {
+         likes++;
+         counter.innerHTML = likes;
+         (likedPosts.includes(id) ? "" : likedPosts.push(id));
+         console.log(likedPosts);
+         liked = true;
+      }
+      
       e.preventDefault();
       
    })
